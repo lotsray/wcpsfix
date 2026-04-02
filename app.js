@@ -136,16 +136,13 @@ async function initRepairPage() {
       }
 
       form.reset();
+
       const categoryParam = getQueryParam("category");
       if (categoryParam) {
         qs("#category").value = categoryParam;
       }
 
-      setAlert(
-        alertBox,
-        `送出成功，報修編號：${result.repairId}`,
-        "success"
-      );
+      setAlert(alertBox, `送出成功，報修編號：${result.repairId}`, "success");
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
       setAlert(alertBox, "送出失敗，請稍後再試。", "error");
@@ -222,7 +219,6 @@ async function loadAdminSettings() {
     if (!data.success) return;
 
     adminSettingsCache = data;
-
     fillSelect(qs("#statusFilter"), data.statusList, "全部狀態");
     fillSelect(qs("#editStatus"), data.statusList);
   } catch (err) {
@@ -345,7 +341,7 @@ function renderRepairs(list) {
         <td>${escapeHtml(item.remark)}</td>
         <td>
           <div class="row-actions">
-            <button type="button" class="small-btn" onclick="openEditModal('${escapeHtml(item.repairId)}')">編輯</button>
+            <button type="button" class="small-btn" onclick="openEditModal('${item.repairId.replace(/'/g, "\\'")}')">編輯</button>
           </div>
         </td>
       </tr>
@@ -410,4 +406,96 @@ async function submitEditForm(e) {
   } catch (err) {
     setAlert(editAlert, "更新失敗，請稍後再試。", "error");
   }
+}
+
+/* =========================
+   status.html
+========================= */
+
+async function initStatusPage() {
+  const tableBody = qs("#publicRepairsTableBody");
+  if (!tableBody) return;
+
+  const alertBox = qs("#publicAlert");
+  clearAlert(alertBox);
+
+  try {
+    const data = await getJson(`${GAS_URL}?action=getSettings`);
+    if (data.success) {
+      fillSelect(qs("#publicCategoryFilter"), data.categories, "全部類別");
+      fillSelect(qs("#publicStatusFilter"), data.statusList, "全部狀態");
+    }
+  } catch (err) {
+    console.error(err);
+  }
+
+  const searchBtn = qs("#publicSearchBtn");
+  if (searchBtn) {
+    searchBtn.addEventListener("click", () => loadPublicRepairs());
+  }
+
+  await loadPublicRepairs();
+}
+
+async function loadPublicRepairs() {
+  const alertBox = qs("#publicAlert");
+  clearAlert(alertBox);
+
+  const category = qs("#publicCategoryFilter") ? qs("#publicCategoryFilter").value.trim() : "";
+  const status = qs("#publicStatusFilter") ? qs("#publicStatusFilter").value.trim() : "";
+  const keyword = qs("#publicKeywordFilter") ? qs("#publicKeywordFilter").value.trim() : "";
+
+  setAlert(alertBox, "資料讀取中...", "info");
+
+  try {
+    const url = `${GAS_URL}?action=getPublicRepairs&category=${encodeURIComponent(category)}&status=${encodeURIComponent(status)}&keyword=${encodeURIComponent(keyword)}`;
+    const result = await getJson(url);
+
+    if (!result.success) {
+      setAlert(alertBox, result.message || "讀取失敗", "error");
+      renderPublicRepairs([]);
+      return;
+    }
+
+    const list = result.repairs || [];
+    renderPublicRepairs(list);
+
+    if (list.length === 0) {
+      setAlert(alertBox, "目前查無符合條件的報修資料。", "info");
+    } else {
+      setAlert(alertBox, `共 ${list.length} 筆資料。`, "success");
+    }
+  } catch (err) {
+    setAlert(alertBox, "讀取資料失敗，請稍後再試。", "error");
+    renderPublicRepairs([]);
+  }
+}
+
+function renderPublicRepairs(list) {
+  const tbody = qs("#publicRepairsTableBody");
+  if (!tbody) return;
+
+  if (!list || list.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="11" class="empty-cell">尚無資料</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = list.map(item => {
+    const urgencyBadgeClass = item.urgency === "急件" ? "urgent" : "normal";
+    return `
+      <tr>
+        <td>${escapeHtml(item.repairId)}</td>
+        <td>${escapeHtml(item.repairTime)}</td>
+        <td>${escapeHtml(item.category)}</td>
+        <td>${escapeHtml(item.reporter)}</td>
+        <td>${escapeHtml(item.unit)}</td>
+        <td>${escapeHtml(item.location)}</td>
+        <td>${escapeHtml(item.itemName)}</td>
+        <td>${escapeHtml(item.description)}</td>
+        <td><span class="badge ${urgencyBadgeClass}">${escapeHtml(item.urgency)}</span></td>
+        <td>${escapeHtml(item.status)}</td>
+        <td>${escapeHtml(item.completedTime)}</td>
+      </tr>
+    `;
+  }).join("");
 }
