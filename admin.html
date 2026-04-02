@@ -3,142 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>報修管理端</title>
+  <title>填寫報修單</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="container">
-    <section class="card" id="adminLoginSection">
+    <section class="card">
       <div class="page-head">
         <div>
-          <h1>報修管理端</h1>
-          <p class="subtitle">請輸入管理碼登入。</p>
+          <h1 id="repairPageTitle">填寫報修單</h1>
+          <p class="subtitle">請完整填寫資料，以利後續處理。</p>
         </div>
         <a class="back-link" href="index.html">返回首頁</a>
       </div>
 
-      <div id="loginAlert" class="alert" hidden></div>
+      <div id="repairAlert" class="alert" hidden></div>
 
-      <form id="adminLoginForm" class="login-row">
-        <div class="form-group grow">
-          <label for="adminCode">管理碼</label>
-          <input id="adminCode" type="password" autocomplete="current-password" required>
-        </div>
-        <div class="login-btn-wrap">
-          <button type="submit" class="btn-primary">登入</button>
-        </div>
-      </form>
-    </section>
-
-    <section class="card" id="adminPanelSection" hidden>
-      <div class="page-head">
-        <div>
-          <h1 id="adminPanelTitle">報修管理</h1>
-          <p class="subtitle" id="adminPanelSubtitle"></p>
-        </div>
-        <div class="top-actions">
-          <button type="button" class="btn-secondary" id="refreshBtn">重新整理</button>
-          <button type="button" class="btn-danger-outline" id="logoutBtn">登出</button>
-        </div>
-      </div>
-
-      <div id="adminAlert" class="alert" hidden></div>
-
-      <div class="filters">
+      <form id="repairForm" class="form-grid">
         <div class="form-group">
-          <label for="statusFilter">狀態篩選</label>
-          <select id="statusFilter">
-            <option value="">全部狀態</option>
-          </select>
-        </div>
-
-        <div class="form-group grow">
-          <label for="keywordFilter">關鍵字搜尋</label>
-          <input id="keywordFilter" type="text" placeholder="可搜尋報修人、單位、地點、設備名稱、問題描述">
-        </div>
-
-        <div class="filter-btn-wrap">
-          <button type="button" class="btn-primary" id="searchBtn">查詢</button>
-        </div>
-      </div>
-
-      <div class="table-wrap">
-        <table class="repair-table">
-          <thead>
-            <tr>
-              <th>報修編號</th>
-              <th>報修時間</th>
-              <th>報修人</th>
-              <th>單位</th>
-              <th>聯絡方式</th>
-              <th>地點</th>
-              <th>設備名稱</th>
-              <th>問題描述</th>
-              <th>緊急程度</th>
-              <th>狀態</th>
-              <th>處理人</th>
-              <th>處理說明</th>
-              <th>完成時間</th>
-              <th>備註</th>
-              <th>操作</th>
-            </tr>
-          </thead>
-          <tbody id="repairsTableBody">
-            <tr>
-              <td colspan="15" class="empty-cell">尚無資料</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-  </main>
-
-  <div class="modal" id="editModal" hidden>
-    <div class="modal-backdrop" id="modalBackdrop"></div>
-    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="editModalTitle">
-      <div class="modal-head">
-        <h2 id="editModalTitle">編輯報修單</h2>
-        <button type="button" class="icon-btn" id="closeModalBtn" aria-label="關閉">×</button>
-      </div>
-
-      <div id="editAlert" class="alert" hidden></div>
-
-      <form id="editForm" class="form-grid">
-        <div class="form-group">
-          <label for="editRepairId">報修編號</label>
-          <input id="editRepairId" type="text" readonly>
+          <label for="category">報修類別</label>
+          <select id="category" name="category" required></select>
         </div>
 
         <div class="form-group">
-          <label for="editStatus">狀態</label>
-          <select id="editStatus" required></select>
+          <label for="urgency">緊急程度</label>
+          <select id="urgency" name="urgency" required></select>
         </div>
 
         <div class="form-group">
-          <label for="editHandler">處理人</label>
-          <input id="editHandler" type="text">
+          <label for="reporter">報修人</label>
+          <input id="reporter" name="reporter" type="text" required>
+        </div>
+
+        <div class="form-group">
+          <label for="unit">單位</label>
+          <input id="unit" name="unit" type="text" placeholder="例如：教務處、五年一班、332辦公室" required>
+        </div>
+
+        <div class="form-group">
+          <label for="contact">聯絡方式</label>
+          <input id="contact" name="contact" type="text" placeholder="分機、手機或其他可聯繫方式" required>
+        </div>
+
+        <div class="form-group">
+          <label for="location">報修地點</label>
+          <input id="location" name="location" type="text" placeholder="例如：三樓電腦教室、二年三班、總務處旁" required>
         </div>
 
         <div class="form-group form-group-full">
-          <label for="editHandleNote">處理說明</label>
-          <textarea id="editHandleNote" rows="5"></textarea>
+          <label for="itemName">設備名稱</label>
+          <input id="itemName" name="itemName" type="text" placeholder="例如：教師電腦、投影機、電風扇、門鎖" required>
         </div>
 
         <div class="form-group form-group-full">
-          <label for="editRemark">備註</label>
-          <textarea id="editRemark" rows="3"></textarea>
+          <label for="description">問題描述</label>
+          <textarea id="description" name="description" rows="6" placeholder="請盡量寫清楚故障情形，例如無法開機、畫面閃爍、網路中斷、冷氣不冷等" required></textarea>
         </div>
 
         <div class="form-actions form-group-full">
-          <button type="submit" class="btn-primary">儲存更新</button>
+          <button id="submitRepairBtn" type="submit" class="btn-primary">送出報修單</button>
         </div>
       </form>
-    </div>
-  </div>
+    </section>
+  </main>
 
   <script src="app.js"></script>
   <script>
-    window.addEventListener("DOMContentLoaded", initAdminPage);
+    window.addEventListener("DOMContentLoaded", initRepairPage);
   </script>
 </body>
 </html>
