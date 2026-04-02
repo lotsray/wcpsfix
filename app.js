@@ -1,4 +1,4 @@
-const GAS_URL = "https://script.google.com/macros/s/AKfycbyhawv9Ycqjii5duZHwFpIOOd2BFfgy5NDkn5dgBFX_Ay0LcC1ETeg_gIpQKO1JjWq2gg/exec";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbxGsTCROvzkU_DPOMsAf3vbLoBaWkVprmV7ZdWPHXzLUuxYIHdNTSDoI6Z0Z_BKIi5-xQ/exec";
 
 const STORAGE_KEY_ADMIN_CODE = "repair_admin_code";
 
