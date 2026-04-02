@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>填寫報修單</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <section class="card">
+      <div class="page-head">
+        <div>
+          <h1 id="repairPageTitle">填寫報修單</h1>
+          <p class="subtitle">請完整填寫資料，以利後續處理。</p>
+        </div>
+        <a class="back-link" href="index.html">返回首頁</a>
+      </div>
+
+      <div id="repairAlert" class="alert" hidden></div>
+
+      <form id="repairForm" class="form-grid">
+        <div class="form-group">
+          <label for="category">報修類別</label>
+          <select id="category" name="category" required></select>
+        </div>
+
+        <div class="form-group">
+          <label for="urgency">緊急程度</label>
+          <select id="urgency" name="urgency" required></select>
+        </div>
+
+        <div class="form-group">
+          <label for="reporter">報修人</label>
+          <input id="reporter" name="reporter" type="text" required>
+        </div>
+
+        <div class="form-group">
+          <label for="unit">單位</label>
+          <input id="unit" name="unit" type="text" placeholder="例如：教務處、五年一班、332辦公室" required>
+        </div>
+
+        <div class="form-group">
+          <label for="contact">聯絡方式</label>
+          <input id="contact" name="contact" type="text" placeholder="分機、手機或其他可聯繫方式" required>
+        </div>
+
+        <div class="form-group">
+          <label for="location">報修地點</label>
+          <input id="location" name="location" type="text" placeholder="例如：三樓電腦教室、二年三班、總務處旁" required>
+        </div>
+
+        <div class="form-group form-group-full">
+          <label for="itemName">設備名稱</label>
+          <input id="itemName" name="itemName" type="text" placeholder="例如：教師電腦、投影機、電風扇、門鎖" required>
+        </div>
+
+        <div class="form-group form-group-full">
+          <label for="description">問題描述</label>
+          <textarea id="description" name="description" rows="6" placeholder="請盡量寫清楚故障情形，例如無法開機、畫面閃爍、網路中斷、冷氣不冷等" required></textarea>
+        </div>
+
+        <div class="form-actions form-group-full">
+          <button id="submitRepairBtn" type="submit" class="btn-primary">送出報修單</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    window.addEventListener("DOMContentLoaded", initRepairPage);
+  </script>
+</body>
+</html>
