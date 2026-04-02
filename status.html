@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校園報修進度總覽</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <section class="card">
+      <div class="page-head">
+        <div>
+          <h1>校園報修進度總覽</h1>
+          <p class="subtitle">可查詢資訊設備報修與一般設備報修之目前處理情形。</p>
+        </div>
+        <a class="back-link" href="index.html">返回首頁</a>
+      </div>
+
+      <div id="publicAlert" class="alert" hidden></div>
+
+      <div class="filters">
+        <div class="form-group">
+          <label for="publicCategoryFilter">報修類別</label>
+          <select id="publicCategoryFilter">
+            <option value="">全部類別</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="publicStatusFilter">處理狀態</label>
+          <select id="publicStatusFilter">
+            <option value="">全部狀態</option>
+          </select>
+        </div>
+
+        <div class="form-group grow">
+          <label for="publicKeywordFilter">關鍵字搜尋</label>
+          <input id="publicKeywordFilter" type="text" placeholder="可搜尋報修編號、申請人、單位、地點、設備名稱、問題描述">
+        </div>
+
+        <div class="filter-btn-wrap">
+          <button type="button" class="btn-primary" id="publicSearchBtn">查詢</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="repair-table">
+          <thead>
+            <tr>
+              <th>報修編號</th>
+              <th>報修時間</th>
+              <th>報修類別</th>
+              <th>報修人</th>
+              <th>單位</th>
+              <th>報修地點</th>
+              <th>設備名稱</th>
+              <th>問題描述</th>
+              <th>緊急程度</th>
+              <th>狀態</th>
+              <th>完成時間</th>
+            </tr>
+          </thead>
+          <tbody id="publicRepairsTableBody">
+            <tr>
+              <td colspan="11" class="empty-cell">尚無資料</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    window.addEventListener("DOMContentLoaded", initStatusPage);
+  </script>
+</body>
+</html>
