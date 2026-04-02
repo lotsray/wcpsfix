@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>五常國小校園報修系統</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container narrow">
+    <section class="card hero-card">
+      <h1>五常國小校園報修系統</h1>
+      <p class="subtitle">請依報修類型選擇入口。</p>
+
+      <div class="entry-grid">
+        <a class="big-entry-btn" href="repair.html?category=資訊設備報修">
+          <span class="entry-title">資訊設備報修</span>
+          <span class="entry-desc">電腦、螢幕、網路、印表機、平板、投影與相關資訊設備</span>
+        </a>
+
+        <a class="big-entry-btn" href="repair.html?category=一般設備報修">
+          <span class="entry-title">一般設備報修</span>
+          <span class="entry-desc">桌椅、門窗、燈具、冷氣、電扇、環境與一般校舍設備</span>
+        </a>
+      </div>
+
+      <div class="admin-link-wrap">
+        <a class="text-link" href="admin.html">進入管理端</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
