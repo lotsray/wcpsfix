@@ -1,416 +1,79 @@
-* {
-  box-sizing: border-box;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif;
-  background: #f5f7fb;
-  color: #1f2937;
-  line-height: 1.6;
-}
-
-body {
-  min-height: 100vh;
-}
-
-a {
-  color: #1d4ed8;
-  text-decoration: none;
-}
-
-a:hover,
-a:focus {
-  text-decoration: underline;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 24px 16px 40px;
-}
-
-.container.narrow {
-  max-width: 760px;
-}
-
-.card {
-  background: #ffffff;
-  border: 1px solid #dbe2ea;
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
-}
-
-.hero-card {
-  margin-top: 48px;
-}
-
-h1, h2 {
-  margin-top: 0;
-  margin-bottom: 8px;
-  line-height: 1.3;
-}
-
-.subtitle {
-  margin-top: 0;
-  margin-bottom: 20px;
-  color: #475569;
-}
-
-.page-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  align-items: flex-start;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-.back-link,
-.text-link {
-  font-size: 0.95rem;
-}
-
-.entry-grid {
-  display: grid;
-  gap: 16px;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  margin-top: 24px;
-}
-
-.big-entry-btn {
-  display: block;
-  border: 1px solid #cbd5e1;
-  border-radius: 14px;
-  background: #f8fafc;
-  padding: 22px 18px;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-}
-
-.big-entry-btn:hover,
-.big-entry-btn:focus {
-  text-decoration: none;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
-  border-color: #94a3b8;
-}
-
-.entry-title {
-  display: block;
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 8px;
-}
-
-.entry-desc {
-  display: block;
-  color: #475569;
-  font-size: 0.95rem;
-}
-
-.admin-link-wrap {
-  margin-top: 24px;
-  text-align: center;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.form-group-full {
-  grid-column: 1 / -1;
-}
-
-.form-group.grow {
-  flex: 1;
-}
-
-label {
-  font-weight: 600;
-  color: #0f172a;
-}
-
-input,
-select,
-textarea,
-button {
-  font: inherit;
-}
-
-input,
-select,
-textarea {
-  width: 100%;
-  border: 1px solid #cbd5e1;
-  background: #fff;
-  border-radius: 10px;
-  padding: 10px 12px;
-  color: #0f172a;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-  outline: 3px solid rgba(59, 130, 246, 0.2);
-  border-color: #3b82f6;
-}
-
-textarea {
-  resize: vertical;
-  min-height: 110px;
-}
-
-.form-actions {
-  margin-top: 4px;
-}
-
-.btn-primary,
-.btn-secondary,
-.btn-danger-outline {
-  border: 1px solid transparent;
-  border-radius: 10px;
-  padding: 10px 16px;
-  cursor: pointer;
-  min-height: 44px;
-}
-
-.btn-primary {
-  background: #1d4ed8;
-  color: #ffffff;
-}
-
-.btn-primary:hover,
-.btn-primary:focus {
-  background: #1e40af;
-}
-
-.btn-secondary {
-  background: #e2e8f0;
-  color: #0f172a;
-}
-
-.btn-secondary:hover,
-.btn-secondary:focus {
-  background: #cbd5e1;
-}
-
-.btn-danger-outline {
-  background: #fff;
-  color: #b91c1c;
-  border-color: #fca5a5;
-}
-
-.btn-danger-outline:hover,
-.btn-danger-outline:focus {
-  background: #fef2f2;
-}
-
-.login-row {
-  display: flex;
-  gap: 16px;
-  align-items: flex-end;
-  flex-wrap: wrap;
-}
-
-.login-btn-wrap,
-.filter-btn-wrap {
-  display: flex;
-  align-items: flex-end;
-}
-
-.filters {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 18px;
-  flex-wrap: wrap;
-}
-
-.top-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.alert {
-  border-radius: 10px;
-  padding: 12px 14px;
-  margin-bottom: 16px;
-  border: 1px solid #cbd5e1;
-  background: #f8fafc;
-}
-
-.alert.success {
-  background: #ecfdf5;
-  border-color: #86efac;
-  color: #166534;
-}
-
-.alert.error {
-  background: #fef2f2;
-  border-color: #fca5a5;
-  color: #991b1b;
-}
-
-.alert.info {
-  background: #eff6ff;
-  border-color: #93c5fd;
-  color: #1d4ed8;
-}
-
-.table-wrap {
-  overflow-x: auto;
-  border: 1px solid #dbe2ea;
-  border-radius: 12px;
-}
-
-.repair-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 1400px;
-  background: #fff;
-}
-
-.repair-table th,
-.repair-table td {
-  border-bottom: 1px solid #e5e7eb;
-  padding: 10px 12px;
-  text-align: left;
-  vertical-align: top;
-  font-size: 0.95rem;
-}
-
-.repair-table th {
-  background: #f8fafc;
-  color: #0f172a;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.repair-table td {
-  color: #334155;
-}
-
-.repair-table tr:hover td {
-  background: #fcfcfd;
-}
-
-.empty-cell {
-  text-align: center;
-  color: #64748b;
-  padding: 28px 12px;
-}
-
-.row-actions {
-  display: flex;
-  gap: 8px;
-}
-
-.small-btn {
-  border: 1px solid #cbd5e1;
-  background: #fff;
-  color: #0f172a;
-  border-radius: 8px;
-  padding: 7px 10px;
-  cursor: pointer;
-}
-
-.small-btn:hover,
-.small-btn:focus {
-  background: #f8fafc;
-}
-
-.badge {
-  display: inline-block;
-  border-radius: 999px;
-  padding: 4px 10px;
-  font-size: 0.85rem;
-  white-space: nowrap;
-  border: 1px solid #cbd5e1;
-  background: #f8fafc;
-}
-
-.badge.urgent {
-  background: #fef2f2;
-  border-color: #fca5a5;
-  color: #991b1b;
-}
-
-.badge.normal {
-  background: #f8fafc;
-  color: #334155;
-}
-
-.modal[hidden] {
-  display: none;
-}
-
-.modal {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-}
-
-.modal-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.45);
-}
-
-.modal-dialog {
-  position: relative;
-  max-width: 760px;
-  margin: 40px auto;
-  background: #fff;
-  border-radius: 16px;
-  padding: 22px;
-  z-index: 1;
-  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.2);
-}
-
-.modal-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.icon-btn {
-  border: none;
-  background: transparent;
-  font-size: 1.8rem;
-  line-height: 1;
-  cursor: pointer;
-  color: #475569;
-}
-
-@media (max-width: 768px) {
-  .container {
-    padding: 16px 12px 28px;
-  }
-
-  .card {
-    padding: 18px;
-    border-radius: 12px;
-  }
-
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .modal-dialog {
-    margin: 16px;
-    max-width: none;
-  }
-}
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校園報修進度總覽</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <section class="card">
+      <div class="page-head">
+        <div>
+          <h1>校園報修進度總覽</h1>
+          <p class="subtitle">可查詢資訊設備報修與一般設備報修之目前處理情形。</p>
+        </div>
+        <a class="back-link" href="index.html">返回首頁</a>
+      </div>
+
+      <div id="publicAlert" class="alert" hidden></div>
+
+      <div class="filters">
+        <div class="form-group">
+          <label for="publicCategoryFilter">報修類別</label>
+          <select id="publicCategoryFilter">
+            <option value="">全部類別</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="publicStatusFilter">處理狀態</label>
+          <select id="publicStatusFilter">
+            <option value="">全部狀態</option>
+          </select>
+        </div>
+
+        <div class="form-group grow">
+          <label for="publicKeywordFilter">關鍵字搜尋</label>
+          <input id="publicKeywordFilter" type="text" placeholder="可搜尋報修編號、申請人、單位、地點、設備名稱、問題描述">
+        </div>
+
+        <div class="filter-btn-wrap">
+          <button type="button" class="btn-primary" id="publicSearchBtn">查詢</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table class="repair-table">
+          <thead>
+            <tr>
+              <th>報修編號</th>
+              <th>報修時間</th>
+              <th>報修類別</th>
+              <th>報修人</th>
+              <th>單位</th>
+              <th>報修地點</th>
+              <th>設備名稱</th>
+              <th>問題描述</th>
+              <th>緊急程度</th>
+              <th>狀態</th>
+              <th>完成時間</th>
+            </tr>
+          </thead>
+          <tbody id="publicRepairsTableBody">
+            <tr>
+              <td colspan="11" class="empty-cell">尚無資料</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    window.addEventListener("DOMContentLoaded", initStatusPage);
+  </script>
+</body>
+</html>
