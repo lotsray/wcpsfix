@@ -3,73 +3,168 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>填寫報修單</title>
+  <title>報修管理端</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
   <main class="container">
-    <section class="card">
-      <div class="page-head">
-        <div>
-          <h1 id="repairPageTitle">填寫報修單</h1>
-          <p class="subtitle">請完整填寫資料，以利後續處理。</p>
-        </div>
-        <a class="back-link" href="index.html">返回首頁</a>
-      </div>
 
-      <div id="repairAlert" class="alert" hidden></div>
+    <!-- ================= 登入區 ================= -->
+    <section id="adminLoginSection" class="card">
 
-      <form id="repairForm" class="form-grid">
-        <div class="form-group">
-          <label for="category">報修類別</label>
-          <select id="category" name="category" required></select>
+      <h1>報修管理端登入</h1>
+      <p class="subtitle">請輸入管理碼（資訊組 / 總務處）</p>
+
+      <div id="loginAlert" class="alert" hidden></div>
+
+      <form id="adminLoginForm" class="login-row">
+        <div class="form-group grow">
+          <label for="adminCode">管理碼</label>
+          <input id="adminCode" type="password" placeholder="請輸入管理碼">
         </div>
 
-        <div class="form-group">
-          <label for="urgency">緊急程度</label>
-          <select id="urgency" name="urgency" required></select>
-        </div>
-
-        <div class="form-group">
-          <label for="reporter">報修人</label>
-          <input id="reporter" name="reporter" type="text" required>
-        </div>
-
-        <div class="form-group">
-          <label for="unit">單位</label>
-          <input id="unit" name="unit" type="text" placeholder="例如：教務處、五年一班、332辦公室" required>
-        </div>
-
-        <div class="form-group">
-          <label for="contact">聯絡方式</label>
-          <input id="contact" name="contact" type="text" placeholder="分機、手機或其他可聯繫方式" required>
-        </div>
-
-        <div class="form-group">
-          <label for="location">報修地點</label>
-          <input id="location" name="location" type="text" placeholder="例如：三樓電腦教室、二年三班、總務處旁" required>
-        </div>
-
-        <div class="form-group form-group-full">
-          <label for="itemName">設備名稱</label>
-          <input id="itemName" name="itemName" type="text" placeholder="例如：教師電腦、投影機、電風扇、門鎖" required>
-        </div>
-
-        <div class="form-group form-group-full">
-          <label for="description">問題描述</label>
-          <textarea id="description" name="description" rows="6" placeholder="請盡量寫清楚故障情形，例如無法開機、畫面閃爍、網路中斷、冷氣不冷等" required></textarea>
-        </div>
-
-        <div class="form-actions form-group-full">
-          <button id="submitRepairBtn" type="submit" class="btn-primary">送出報修單</button>
+        <div class="login-btn-wrap">
+          <button type="submit" class="btn-primary">登入</button>
         </div>
       </form>
+
+      <div style="margin-top: 16px;">
+        <a class="text-link" href="index.html">← 返回首頁</a>
+      </div>
+
     </section>
+
+    <!-- ================= 管理面板 ================= -->
+    <section id="adminPanelSection" class="card" hidden>
+
+      <div class="page-head">
+        <div>
+          <h1 id="adminPanelTitle">報修管理</h1>
+          <p id="adminPanelSubtitle" class="subtitle"></p>
+        </div>
+
+        <div class="top-actions">
+          <button type="button" class="btn-secondary" id="refreshBtn">重新整理</button>
+          <button type="button" class="btn-danger-outline" id="logoutBtn">登出</button>
+        </div>
+      </div>
+
+      <div id="adminAlert" class="alert" hidden></div>
+
+      <!-- 篩選區 -->
+      <div class="filters">
+
+        <div class="form-group">
+          <label for="statusFilter">處理狀態</label>
+          <select id="statusFilter">
+            <option value="">全部狀態</option>
+          </select>
+        </div>
+
+        <div class="form-group grow">
+          <label for="keywordFilter">關鍵字搜尋</label>
+          <input
+            id="keywordFilter"
+            type="text"
+            placeholder="可搜尋報修人、單位、地點、設備名稱、問題描述"
+          >
+        </div>
+
+        <div class="filter-btn-wrap">
+          <button type="button" class="btn-primary" id="searchBtn">查詢</button>
+        </div>
+
+      </div>
+
+      <!-- 表格 -->
+      <div class="table-wrap">
+        <table class="repair-table">
+          <thead>
+            <tr>
+              <th>編號</th>
+              <th>時間</th>
+              <th>報修人</th>
+              <th>單位</th>
+              <th>聯絡</th>
+              <th>地點</th>
+              <th>設備</th>
+              <th>問題</th>
+              <th>急迫</th>
+              <th>狀態</th>
+              <th>處理人</th>
+              <th>處理說明</th>
+              <th>完成時間</th>
+              <th>備註</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+
+          <tbody id="repairsTableBody">
+            <tr>
+              <td colspan="15" class="empty-cell">尚無資料</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
   </main>
 
+  <!-- ================= 編輯視窗 ================= -->
+  <div id="editModal" class="modal" hidden>
+
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+
+    <div class="modal-dialog">
+
+      <div class="modal-head">
+        <h2>編輯報修資料</h2>
+        <button class="icon-btn" id="closeModalBtn">×</button>
+      </div>
+
+      <div id="editAlert" class="alert" hidden></div>
+
+      <form id="editForm" class="form-grid">
+
+        <input type="hidden" id="editRepairId">
+
+        <div class="form-group">
+          <label for="editStatus">狀態</label>
+          <select id="editStatus"></select>
+        </div>
+
+        <div class="form-group">
+          <label for="editHandler">處理人</label>
+          <input id="editHandler" type="text">
+        </div>
+
+        <div class="form-group form-group-full">
+          <label for="editHandleNote">處理說明</label>
+          <textarea id="editHandleNote"></textarea>
+        </div>
+
+        <div class="form-group form-group-full">
+          <label for="editRemark">備註</label>
+          <textarea id="editRemark"></textarea>
+        </div>
+
+        <div class="form-group form-group-full">
+          <button type="submit" class="btn-primary">儲存修改</button>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <!-- JS -->
   <script src="app.js"></script>
   <script>
-    window.addEventListener("DOMContentLoaded", initRepairPage);
+    window.addEventListener("DOMContentLoaded", initAdminPage);
   </script>
+
 </body>
 </html>
